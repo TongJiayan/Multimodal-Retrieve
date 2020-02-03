@@ -1,0 +1,16 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<config>
+    <general>
+		<!-- Modify rootPath to your path -->
+        <rootPath>~/Multimodal-Retrieve-CCA/</rootPath> 
+        <numOfWords>399</numOfWords>
+    </general>
+    <train>
+        <dataSize>5011</dataSize>
+    </train>
+    <test>
+        <dataSize>100</dataSize>
+        <numOfRetrieved>60</numOfRetrieved>
+        <numOfShown>5</numOfShown>
+    </test>
+</config>
