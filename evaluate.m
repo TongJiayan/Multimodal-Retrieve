@@ -2,7 +2,7 @@
 %%% the variable 'score' means the percent that how many taglist elements in ground truth
 %%% was included in prediction result.
 %%% When the score over the threshold value, we think this result is right
-function [mAP] = evaluate(TD, result_list, threshold_value, config)
+function [mAP] = evaluate(D,TD, result_list, threshold_value, config)
     dataSize = config.test.dataSize;
     numOfRetrieved = config.test.numOfRetrieved;
     AP = 0;
@@ -13,10 +13,7 @@ function [mAP] = evaluate(TD, result_list, threshold_value, config)
         end
         i = 1;
         for m = 1:numOfRetrieved
-            if result_list(n,m) == n
-                continue;
-            end
-            prediction = TD(result_list(n,m)).taglist;
+            prediction = D(result_list(n,m)).taglist;
             if size(prediction,1)==0
                 continue;
             end
@@ -27,7 +24,7 @@ function [mAP] = evaluate(TD, result_list, threshold_value, config)
             end
         end
     end
-    mAP = AP / n;
+    mAP = AP / dataSize / numOfRetrieved;
 end
 
 function [score] = getScore(ground_truth_list, prediction_list)    

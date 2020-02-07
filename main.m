@@ -6,7 +6,7 @@ cd(root_path)
 config = initialize();
 clear root_path;
 
-
+%%
 % LOAD TRAIN DATA
 [D, taglist] = load_data(config, 'train');
 disp('training dataset are all loaded.');
@@ -23,7 +23,9 @@ disp('tag and visual features have been extracted.');
 %%% We should set both the visual features and tag features are
 %%% corresponding with variables in retrieve.m file
 %%%%
-[A,B,r,U,V] = canoncorr(F.bow,F.abs);
+%%
+SF = decent_standard_data('train',F,config);
+[A,B,r,U,V] = canoncorr(SF.gist,SF.rel);
 %%
 
 %%
@@ -36,10 +38,11 @@ TF = extract_features(TD, test_taglist,config,'test');
 disp('test dataset tag and visual features have been extracted.');
 
 %%
-result_list = retrieve('tag-image',TF,A,B,config);
-
+STF = decent_standard_data('test',TF,config);
+result_list = retrieve('tag-image',SF,STF,A,B,config);
+%%
 % EVALUATE mAP
-threshold_value = 0.7;
-[mAP, scores] = evaluate(TD, result_list,threshold_value, config);
+threshold_value = 0.5;
+[mAP] = evaluate(D,TD, result_list,threshold_value, config);
 disp("CCA Algorithm applied on PASCAL VOC 2007 dataset : mAP = ");
 disp(mAP);

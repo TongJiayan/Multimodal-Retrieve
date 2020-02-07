@@ -6,11 +6,11 @@
         <numOfWords>399</numOfWords>
     </general>
     <train>
-        <dataSize>5011</dataSize>
+        <dataSize>5000</dataSize>
     </train>
     <test>
         <dataSize>100</dataSize>
-        <numOfRetrieved>60</numOfRetrieved>
+        <numOfRetrieved>30</numOfRetrieved>
         <numOfShown>5</numOfShown>
     </test>
 </config>
