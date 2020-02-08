@@ -1,24 +1,19 @@
-
-
 function [feature] = extract_tag_feature(taglist, type, dataSize, numOfWords)
 
     if strcmp(type, 'wordcount')
-        feature = extract_wordcount(taglist, dataSize, numOfWords);
-    
+        feature = extract_wordcount(taglist, dataSize, numOfWords);  
     elseif strcmp(type, 'relrank')
-        feature = extract_relative_rank(taglist, dataSize, numOfWords);
-    
+        feature = extract_relative_rank(taglist, dataSize, numOfWords);   
     elseif strcmp(type, 'absrank')
         feature = extract_absolute_rank(taglist, dataSize, numOfWords);
-
     else
         disp('type must be one of (wordcount/relrank/absrank).');
         feature = [];
-
     end
 end
 
-function [f] = extract_wordcount(taglist, dataSize, numOfWords)
+function [wordcount] = extract_wordcount(taglist, dataSize, numOfWords)
+    
     wordcount = zeros(dataSize, numOfWords);
     for n=1:dataSize
         if size(taglist{n}, 1) == 0
@@ -32,18 +27,9 @@ function [f] = extract_wordcount(taglist, dataSize, numOfWords)
             wordcount(n, indices) = hist(taglist{n}, indices);
         end
     end
-
-    f = wordcount;
 end
 
-
-
-
-
-
-
-function [f] = extract_relative_rank(taglist, dataSize, numOfWords)
-    
+function [relRank] = extract_relative_rank(taglist, dataSize, numOfWords)  
 
     N = 50;
     taglistBound = 2*N; % This is arbitrary value.
@@ -71,7 +57,6 @@ function [f] = extract_relative_rank(taglist, dataSize, numOfWords)
         relRankRef(:, n) = relRankRef(:, n-1) + relRankRef(:, n);
     end
 
-
     relRank = zeros(dataSize, numOfWords);
     for n=1:dataSize
         if size(taglist{n}, 1) == 0
@@ -84,24 +69,14 @@ function [f] = extract_relative_rank(taglist, dataSize, numOfWords)
         for m=1:size(uniq, 2)
             ranks = find(taglist{n} == uniq(m));
             avgAbsRank(m) = sum(ranks)/size(ranks, 2);
-
             relRank(n, uniq(m)) = 1- (relRankRef(uniq(m), min(round(avgAbsRank(m)), N)) / relRankRef(uniq(m), N));
         end
     end
-
-    f = relRank;
 end
 
-
-
-
-
-
-
-function [f] = extract_absolute_rank(taglist, dataSize, numOfWords)
-
+function [absRank] = extract_absolute_rank(taglist, dataSize, numOfWords)
+   
     absRank = zeros(dataSize, numOfWords);
-
     for n=1:dataSize
         if size(taglist{n}, 1) == 0
             continue;
@@ -116,7 +91,5 @@ function [f] = extract_absolute_rank(taglist, dataSize, numOfWords)
     absRank = log2(1+absRank);
     absRank(find(absRank == 0)) = Inf;
     absRank = 1./absRank;
-
-    f = absRank;
 end
 

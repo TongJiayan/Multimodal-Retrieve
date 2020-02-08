@@ -8,17 +8,16 @@ function [result_list] = retrieve(type,F,TF,visual_coefficient_matrix,tag_coeffi
 end
 
 function [result_list] = retrieve_by_tag(F, TF,visual_coefficient_matrix,tag_coefficient_matrix,config)
-   
     numOfRetrieved = config.test.numOfRetrieved;
     dataSize = config.test.dataSize;
     trainDataSize = config.train.dataSize;
     result_list = zeros(dataSize,numOfRetrieved);
     
     for n = 1:dataSize
-        R = zeros(trainDataSize);
-        if any(TF.rel(n,:))
+        R = zeros([1 trainDataSize]);
+        if any(TF.wc(n,:))
             %%% Set wordcount as tag_feature for the moment
-            tag_feature = TF.rel(n,:);
+            tag_feature = TF.wc(n,:);
             tag_feature_projected_space = transpose(tag_feature * tag_coefficient_matrix);
             for m = 1:trainDataSize
                 %%% Set gist as visual_feature for the moment
