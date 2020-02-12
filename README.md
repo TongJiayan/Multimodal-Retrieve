@@ -27,6 +27,7 @@ The computing method of mAP following the steps when it used in recommended syst
 ## References
 
 *[1]*. Accounting for the Relative Importance of Objects in Image Retrieval, S.J.Hwang, BMVC 2010
+
 *[2]*. https://zhuanlan.zhihu.com/p/74429856 
 
 ##  Result
