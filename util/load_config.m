@@ -13,7 +13,7 @@ function [config] = load_config()
     % test data configuration
     test = xmlfile.getElementsByTagName('test').item(0);
     testDataSize = test.getElementsByTagName('dataSize').item(0).getTextContent;
-    numOfRetrieved = test.getElementsByTagName('numOfRetrieved').item(0).getTextContent;
+    % numOfRetrieved = test.getElementsByTagName('numOfRetrieved').item(0).getTextContent;
 
     % config object creation
     config = {};
@@ -21,5 +21,5 @@ function [config] = load_config()
     config.general.numOfWords = str2double(numOfWords);
     config.train.dataSize = str2double(trainDataSize);
     config.test.dataSize = str2double(testDataSize);
-    config.test.numOfRetrieved = str2double(numOfRetrieved);
+    % config.test.numOfRetrieved = str2double(numOfRetrieved);
 end
