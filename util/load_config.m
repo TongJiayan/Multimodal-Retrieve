@@ -5,6 +5,7 @@ function [config] = load_config()
     general = xmlfile.getElementsByTagName('general').item(0);
     rootPath = general.getElementsByTagName('rootPath').item(0).getTextContent;
     numOfWords = general.getElementsByTagName('numOfWords').item(0).getTextContent;
+    algorithm = general.getElementsByTagName('algorithm').item(0).getTextContent;
     
     % train data configuration
     train = xmlfile.getElementsByTagName('train').item(0);
@@ -19,6 +20,7 @@ function [config] = load_config()
     config = {};
     config.general.rootPath = char(rootPath);
     config.general.numOfWords = str2double(numOfWords);
+    config.general.algorithm = char(algorithm);
     config.train.dataSize = str2double(trainDataSize);
     config.test.dataSize = str2double(testDataSize);
     % config.test.numOfRetrieved = str2double(numOfRetrieved);

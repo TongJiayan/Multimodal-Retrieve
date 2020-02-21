@@ -1,39 +1,47 @@
 % INITIALIZE
-% root_path = 'E:\毕业设计\多模态数据匹配\实验\CCA\Experiment On Pascal 2007\Multimodal-Retrieve-CCA';
-root_path = '~/Multimodal-Retrieve-CCA';
+% root_path = 'E:\毕业设计\多模态数据匹配\实验\Experiment On Pascal 2007\Multimodal-Retrieve-On-Pascal\';
+root_path = '~/Multimodal-Retrieve';
 cd(root_path)
 config = initialize();
 clear root_path;
 %%
 % LOAD TRAIN DATA
-[D, taglist] = load_data(config, 'train');
+[D, taglist,~] = load_data(config, 'train');
 disp('training dataset are all loaded.');
-%%
+
 % EXTRACT FEATURES
 F = extract_features(D, taglist, config,'train');
 disp('tag and visual features have been extracted.');
 
-% TRAIN COEFFICIENT MATRIX
-[A,B,r,U,V] = canoncorr(F.gist,F.wc);
-disp('coefficient matrix has been trained.');
-%%
-% [TEST]: LOAD TEST DATA
-[TD, test_taglist] = load_data(config,'test');
+% LOAD TEST DATA
+[TD, test_taglist,theNumberOfEachObject] = load_data(config,'test');
 disp('test dataset are all loaded.');
-%%
-% [TEST]: EXTRACT FEATURES
+
+% EXTRACT FEATURES
 TF = extract_features(TD, test_taglist,config,'test');
 disp('test dataset tag and visual features have been extracted.');
 %%
-% RETRIEVE 
-result_list = retrieve('tag-image',TF,A,B,config);
-disp('Relative images have been retrieved according to tag feature.');
-%%
-% EVALUATE
-theNumberOfEachObject = load_objectcount(TD,config);
+% TRAIN MODEL and TEST
+if strcmp('CCA',config.general.algorithm)
+    [A,B,r,U,V] = canoncorr(F.gist,F.wc);
+    disp('model has been trained.');
+    
+    result_list = retrieve_CCA('tag-image',TF,A,B,config);
+    disp('Relative images have been retrieved according to tag feature.');
+elseif strcmp('PLS',config.general.algorithm)
+    [XL,YL,XS,YS,BETA,PCTVAR,MSE] = plsregress(F.wc,F.gist,16);
+    disp('model has been trained.');
+    % ncomp = find(cumsum(PCTVAR(2,:)) >= pve,1, 'first');
+    
+    % plot(1:350,cumsum(100*PCTVAR(2,:)));
+    % plot(1:350,100*PCTVAR(2,:));
+    % xlabel('Number of PLS components');
+    % ylabel('Percent Variance Explained in y');
+    result_list = retrieve_PLS('tag-image',TF,BETA,config);
+    disp('Relative images have been retrieved according to tag feature.');
+end
 
-[mAP1,mAP2] = evaluate(TD, result_list,theNumberOfEachObject, config);
-disp("With trapz function:mAP=");
-disp(mAP1);
-disp("Compute AP directly, mAP=");
-disp(mAP2);
+% EVALUATE
+[mAP] = evaluate(TD, result_list,theNumberOfEachObject, config);
+output = sprintf('The performance of %s (mAP)= %.4f',config.general.algorithm,mAP);
+disp(output);

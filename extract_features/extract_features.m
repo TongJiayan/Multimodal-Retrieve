@@ -25,7 +25,7 @@ function [F] = extract_features(D, taglist, config,type)
     F.gist = F.gist - repmat(mean(F.gist),dataSize,1);
     F.hsv = F.hsv - repmat(mean(F.hsv),dataSize,1);
     F.bow = F.bow - repmat(mean(F.bow),dataSize,1);
-
+ 
     % normalize variance (to improve anisotropy) or any other preprocessing
     F.wc = F.wc*sqrt(diag(1./diag(F.wc'*F.wc)));
     F.wc(isnan(F.wc)==1)=0;
