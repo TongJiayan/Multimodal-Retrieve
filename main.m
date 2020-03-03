@@ -26,7 +26,7 @@ if strcmp('CCA',config.general.algorithm)
     [A,B,r,U,V] = canoncorr(F.gist,F.wc);
     disp('model has been trained.');
     
-    result_list = retrieve_CCA('tag-image',TF,A,B,config);
+    result_list = retrieve_CCA('tag-image',TF,A,B);
     disp('Relative images have been retrieved according to tag feature.');
 elseif strcmp('PLS',config.general.algorithm)
     [XL,YL,XS,YS,BETA,PCTVAR,MSE] = plsregress(F.wc,F.gist,16);
@@ -37,8 +37,21 @@ elseif strcmp('PLS',config.general.algorithm)
     % plot(1:350,100*PCTVAR(2,:));
     % xlabel('Number of PLS components');
     % ylabel('Percent Variance Explained in y');
-    result_list = retrieve_PLS('tag-image',TF,BETA,config);
+    result_list = retrieve_PLS('tag-image',TF,BETA);
     disp('Relative images have been retrieved according to tag feature.');
+elseif strcmp('BLM',config.general.algorithm)
+    dataCell = cell(2,1);
+    dataCell{1,1}.label = (1:1:config.train.dataSize).';
+    dataCell{1,1}.data = F.wc;
+    dataCell{2,1}.label = (1:1:config.train.dataSize).';
+    dataCell{2,1}.data = F.gist; 
+    
+    options.method = 'blm';
+    options.Factor=15;
+    options.Lamda = 500;
+  
+    Wout = Newgma(dataCell,options);
+    result_list = retrieve_BLM('tag-image', TF, Wout);
 end
 
 % EVALUATE

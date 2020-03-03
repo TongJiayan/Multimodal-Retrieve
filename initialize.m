@@ -4,6 +4,7 @@ function [config] = initialize
     addpath ./util
     addpath ./CCA
     addpath ./PLS
+    addpath ./BLM
     
     % load configurations
     config = load_config();
