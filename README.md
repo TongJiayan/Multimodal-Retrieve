@@ -6,6 +6,7 @@ Evaluate the performance of multimodal retrieval algorithms with **mAP** on some
 
 1. CCA
 2. PLS
+3. BLM
 
 ## Datasets
 
@@ -29,9 +30,12 @@ The computing method of mAP following the steps when it used in recommended syst
 
 *[1]*. Accounting for the Relative Importance of Objects in Image Retrieval, S.J.Hwang, BMVC 2010
 *[2]*. https://zhuanlan.zhihu.com/p/74429856 
+*[3]*. Generalized Multiview Analysis: A discriminative latent space,A.Sharma et.al
+*[4]*. Bypassing Synthesis : PLS for Face Recognition with Pose , Low-Resolution and Sketch, A.Sharma et.al, CVPR 2011
 
 ##  Result
 
 #### Text-to-Image :
 CCA: mAP = 0.1226
-PLS: mAP = 0.1854
+PLS: mAP = 0.1900
+BLM: mAP = 0.2025
