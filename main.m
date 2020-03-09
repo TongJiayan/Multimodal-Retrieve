@@ -46,8 +46,7 @@ elseif strcmp('BLM',config.general.algorithm)
     dataCell{2,1}.label = (1:1:config.train.dataSize).';
     dataCell{2,1}.data = F.gist; 
     
-    options.method = 'blm';
-    options.Factor=15;
+    options.Factor= 61;
     options.Lamda = 500;
   
     Wout = Newgma(dataCell,options);

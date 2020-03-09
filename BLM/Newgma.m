@@ -66,12 +66,6 @@ function Wout = Newgma(dataCell,options)
         [nS(i), Dim(i)] = size(dataCell{i,1}.data); % each data sample in one row
     end
 
-    % setting up arrays to hold eigen-vectors and means for different views if we want to carry out PCA before GMA
-    if (isfield(options, 'PCA') && options.PCA)
-        evFin = cell(nV,1); % PCA eigen-vectors to project data
-        mPCA = cell(nV,1); % PCA means to subtract before projection
-    end
-
     for i = 1:nV % loop over different views to get corresponding W and D matrices
         D{i,1} = eye(Dim(i));
         W{i,1} = (dataCell{i,1}.data)'*(dataCell{i,1}.data);
@@ -83,13 +77,6 @@ function Wout = Newgma(dataCell,options)
     end
 
 %% Now making the full matrix
-
-    if (isfield(options,'AlignMode'))
-        alignMode = options.AlignMode;
-    else
-        alignMode = 1; % Align all the samples
-    end
-
     for i = 1:nV
         tmp = dataCell{i,1}.label;
         label = unique(tmp);
@@ -100,58 +87,10 @@ function Wout = Newgma(dataCell,options)
         end
     end
 
-
-    switch alignMode
-        case 1 % Align all samples
-            for i = 1:nV
-                Wout{i,1}.alignCol = dataCell{i,1}.data;
-            end
-        case 2 % Align class centres
-            for i = 1:nV
-                Wout{i,1}.alignCol = Wout{i,1}.classMean;
-            end
-        case 3 % Align after clustering
-            k = options.NumCluster;
-            for in = 1:nV
-                Wout{in,1}.classLabel = label;
-                Wout{in,1}.classID = cell(length(label),1);
-                Wout{in,1}.classCent = cell(length(label),1);
-                Wout{in,1}.alignCol = [];
-                if in == 1
-                    for c = 1:length(label)
-                        fil = dataCell{in,1}.label == label(c);
-                        tmp = dataCell{in,1}.data(fil,:);
-                        [id, cC] = kmeans(tmp,k,'emptyaction','drop');
-                        Wout{in,1}.classID{c,1} = id;
-                        Wout{in,1}.classCent{c,1} =  cC;
-                        Wout{in,1}.alignCol = [ Wout{in,1}.alignCol ; cC];
-                    end
-                else
-                    for c = 1:length(label)
-                        fil = dataCell{in,1}.label == label(c);
-                        tmp = dataCell{in,1}.data(fil,:);
-                        Wout{in,1}.classID{c,1} = Wout{1,1}.classID{c,1};
-                        for inn = 1:k
-                            fil1 = Wout{in,1}.classID{c,1} == inn;
-                            Wout{in,1}.classCent{c,1}(inn,:) = mean(tmp(fil1,:));
-                        end
-                        Wout{in,1}.alignCol = [ Wout{in,1}.alignCol ; Wout{in,1}.classCent{c,1}];
-                    end
-                end
-            end
-
-        case 4
-            if (isfield(options,'nPair') && options.nPair > 0)
-            C1 = generateRandomPairs(vLabel,options.nPair);
-            else
-                options.nPair = length(vLabel{1,1})*2;
-                C1 = generateRandomPairs(vLabel,options.nPair);
-            end
-            for i = 1:nV
-                Wout{i,1}.alignCol = dataCell{i,1}.data(C1(:,i),:);
-                Wout{i,1}.alignCol = [Wout{i,1}.alignCol; Wout{i,1}.classMean];
-            end
+    for i = 1:nV
+        Wout{i,1}.alignCol = dataCell{i,1}.data;
     end
+   
     Wf = zeros(sum(Dim),sum(Dim));
 
     for r = 1:nV
@@ -178,9 +117,5 @@ function Wout = Newgma(dataCell,options)
     for i = 1:nV
         Wout{i,1}.Bases = eigVec(sum(Dim(1:i-1))+1:sum(Dim(1:i)),:);
         Wout{i,1}.Evals = diag(eigVal);
-        if isfield(options,'PCA')
-            Wout{i,1}.evs = evFin{i,1};
-            Wout{i,1}.mPCA = mPCA{i,1};
-        end
     end
 end
