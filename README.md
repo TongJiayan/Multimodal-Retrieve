@@ -38,4 +38,4 @@ The computing method of mAP following the steps when it used in recommended syst
 #### Text-to-Image :
 CCA: mAP = 0.1226
 PLS: mAP = 0.1900
-BLM: mAP = 0.2025
+BLM: mAP = 0.2085
