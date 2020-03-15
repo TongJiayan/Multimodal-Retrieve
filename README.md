@@ -6,6 +6,8 @@ Evaluate the performance of multimodal retrieval algorithms with **mAP** on some
 
 1. CCA
 2. PLS
+3. BLM
+4. GMMFA
 
 ## Datasets
 
