@@ -1,6 +1,6 @@
 % INITIALIZE
-% root_path = 'E:\毕业设计\多模态数据匹配\实验\Experiment On Pascal 2007\Multimodal-Retrieve-On-Pascal\';
-root_path = '~/Multimodal-Retrieve';
+root_path = 'E:\毕业设计\多模态数据匹配\实验\Experiment On Pascal 2007\Multimodal-Retrieve-On-Pascal\';
+% root_path = '~/Multimodal-Retrieve';
 cd(root_path)
 config = initialize();
 clear root_path;
