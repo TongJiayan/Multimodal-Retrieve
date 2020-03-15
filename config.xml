@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <general>
-		<rootPath>~/Multimodal-Retrieve/</rootPath>
-        <!-- <rootPath>E:\毕业设计\多模态数据匹配\实验\Experiment On Pascal 2007\Multimodal-Retrieve-On-Pascal\</rootPath> -->
-        <algorithm>BLM</algorithm>
+        <rootPath>~/Multimodal-Retrieve/</rootPath> 
+        <algorithm>PLS</algorithm>
         <numOfWords>399</numOfWords>
     </general>
     <train>

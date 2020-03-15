@@ -20,3 +20,4 @@ function [mAP] = evaluate(TD, result_list, theNumberOfEachObject,config)
     end
     mAP = mean(AP);
 end
+
