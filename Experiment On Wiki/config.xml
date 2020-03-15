@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <general>
+        <rootPath>~/Multimodal-Retrieve/Experiment On Wiki/</rootPath> 
+        <algorithm>PLS</algorithm>
+    </general>
+    <train>
+        <!-- MAX = 2808 -->
+        <dataSize>2173</dataSize>
+    </train>
+    <test>
+        <!-- MAX = 2841 -->
+        <dataSize>693</dataSize>
+    </test>
+</config>

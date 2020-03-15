@@ -1,0 +1,24 @@
+function [config] = load_config()
+    xmlfile = xmlread('config.xml');
+
+    % general configuration
+    general = xmlfile.getElementsByTagName('general').item(0);
+    rootPath = general.getElementsByTagName('rootPath').item(0).getTextContent;
+    algorithm = general.getElementsByTagName('algorithm').item(0).getTextContent; 
+    
+    % train data configuration
+    train = xmlfile.getElementsByTagName('train').item(0);
+    trainDataSize = train.getElementsByTagName('dataSize').item(0).getTextContent;
+    
+    % test data configuration
+    test = xmlfile.getElementsByTagName('test').item(0);
+    testDataSize = test.getElementsByTagName('dataSize').item(0).getTextContent;
+
+    % config object creation
+    config = {};
+    config.general.rootPath = char(rootPath);
+    config.general.algorithm = char(algorithm);
+    config.train.dataSize = str2double(trainDataSize);
+    config.test.dataSize = str2double(testDataSize);
+    
+end
