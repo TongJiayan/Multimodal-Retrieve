@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <general>
-        <rootPath>E:\毕业设计\多模态数据匹配\实验\Experiment On Pascal 2007\Multimodal-Retrieve-On-Pascal\</rootPath> 
-        <algorithm>PLS</algorithm>
-        <numOfWords>399</numOfWords>
+        <rootPath>~/Multimodal-Retrieve</rootPath> 
+        <algorithm>GMMFA</algorithm>
+        <dataset>PASCAL</dataset>  
+        <direction>text-to-image</direction>
     </general>
-    <train>
-        <!-- MAX = 2808 -->
-        <dataSize>2808</dataSize>
-    </train>
-    <test>
-        <!-- MAX = 2841 -->
-        <dataSize>2841</dataSize>
-    </test>
+    <pascal>
+        <numOfWords>399</numOfWords>
+        <trainDataSize>2808</trainDataSize>
+        <testDataSize>2841</testDataSize>
+    </pascal>
+    <wiki>
+        <trainDataSize>2173</trainDataSize>
+        <testDataSize>693</testDataSize>        
+    </wiki>   
 </config>

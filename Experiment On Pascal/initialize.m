@@ -1,11 +1,7 @@
 
 function [config] = initialize
-    addpath ./extract_features
     addpath ./util
-    addpath ./CCA
-    addpath ./PLS
-    addpath ./BLM
-    addpath ./GMMFA
+    addpath ./common
     
     % load configurations
     config = load_config();
