@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <general>
-        <rootPath>~/Multimodal-Retrieve</rootPath> 
+        <rootPath>~/Multimodal-Retrieve/</rootPath> 
         <algorithm>GMMFA</algorithm>
         <dataset>PASCAL</dataset>  
         <direction>text-to-image</direction>
