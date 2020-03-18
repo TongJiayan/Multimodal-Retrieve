@@ -60,6 +60,6 @@ The computing method of mAP following the steps when it used in recommended syst
 | :---: | :----------------: | :----------------: |
 |  CCA  |       0.1867       |       0.1322       |
 |  PLS  |       0.2479       |       0.1428       |
-|  BLM  |                    |                    |
-| GMMFA |                    |                    |
+|  BLM  |       0.2097       |       0.1648       |
+| GMMFA |       0.2102       |       0.1742       |
 
