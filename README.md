@@ -58,8 +58,8 @@ The computing method of mAP following the steps when it used in recommended syst
 
 |       | Image-to-text(mAP) | Text-to-image(mAP) |
 | :---: | :----------------: | :----------------: |
-|  CCA  |       0.2390       |       0.1322       |
-|  PLS  |       0.1764       |       0.1547       |
-|  BLM  |       0.2100       |       0.1672       |
-| GMMFA |       0.2118       |       0.1727       |
+|  CCA  |       0.2435       |       0.1978       |
+|  PLS  |       0.2075       |       0.1654       |
+|  BLM  |       0.2589       |       0.2008       |
+| GMMFA |       0.2481       |       0.1997       |
 
