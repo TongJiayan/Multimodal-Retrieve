@@ -49,17 +49,17 @@ The computing method of mAP following the steps when it used in recommended syst
 #### Experiment on PASCAL:
 |       | Image-to-text(mAP) | Text-to-image(mAP) |
 | :---: | :----------------: | :----------------: |
-|  CCA  |       0.1962       |       0.1226       |
-|  PLS  |       0.2257       |       0.1900       |
+|  CCA  |       0.1962       |       0.1754       |
+|  PLS  |       0.2266       |       0.1879       |
 |  BLM  |       0.2419       |       0.2085       |
-| GMMFA |       0.2419       |       0.2075       |
+| GMMFA |       0.2424       |       0.2089       |
 
 ### Experiment on Wiki:
 
 |       | Image-to-text(mAP) | Text-to-image(mAP) |
 | :---: | :----------------: | :----------------: |
 |  CCA  |       0.2390       |       0.1322       |
-|  PLS  |       0.1764       |       0.1428       |
-|  BLM  |       0.2090       |       0.1648       |
-| GMMFA |       0.2102       |       0.1742       |
+|  PLS  |       0.1764       |       0.1547       |
+|  BLM  |       0.2100       |       0.1672       |
+| GMMFA |       0.2118       |       0.1727       |
 
