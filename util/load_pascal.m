@@ -11,11 +11,11 @@ function [data] = load_pascal(config)
     data = {};
     data.train = {};
     data.test = {};
-    data.train.text = train_features.wc;
-    data.train.image = train_features.gist;
-    data.test.text = test_features.wc;
-    data.test.image = test_features.gist;  
-    data.test.objectcount = objectcount;
+    data.test.objectcount = objectcount;  
+    data.train.text = pre_process(train_features.wc);
+    data.train.image = pre_process(double(train_features.gist));
+    data.test.text = pre_process(test_features.wc);
+    data.test.image = pre_process(double(test_features.gist));  
 end
 
 function [raw_data,taglist,objectcount] = load_raw_data(dataPath,dataSize)
@@ -57,31 +57,7 @@ function [F] = extract_features(D, taglist, config,type)
     F.gist = extract_visual_feature('gist',dataSize,D);
     F.hsv = extract_visual_feature('hsv',dataSize,D);
     F.bow = extract_visual_feature('bow',dataSize,D);
-    
-    % Decentralization
-    F.wc = F.wc - repmat(mean(F.wc),dataSize,1);
-    F.rel = F.rel - repmat(mean(F.rel),dataSize,1);
-    F.abs = F.abs - repmat(mean(F.abs),dataSize,1);
-    F.gist = F.gist - repmat(mean(F.gist),dataSize,1);
-    F.hsv = F.hsv - repmat(mean(F.hsv),dataSize,1);
-    F.bow = F.bow - repmat(mean(F.bow),dataSize,1);
- 
-    % normalize variance (to improve anisotropy) or any other preprocessing
-    F.wc = F.wc*sqrt(diag(1./diag(F.wc'*F.wc)));
-    F.wc(isnan(F.wc)==1)=0;
-    F.rel = F.rel*sqrt(diag(1./diag(F.rel'*F.rel)));
-    F.rel(isnan(F.rel)==1)=0;
-    F.abs = F.abs*sqrt(diag(1./diag(F.abs'*F.abs)));
-    F.abs(isnan(F.abs)==1)=0;
-    F.gist = F.gist*sqrt(diag(1./diag(F.gist'*F.gist)));
-    F.gist(isnan(F.gist)==1)=0;
-    F.hsv = F.hsv*sqrt(diag(1./diag(F.hsv'*F.hsv)));
-    F.hsv(isnan(F.hsv)==1)=0;
-    F.bow = F.bow*sqrt(diag(1./diag(F.bow'*F.bow)));
-    F.bow(isnan(F.bow)==1)=0;
-    
 end
-
 
 function [feature] = extract_visual_feature(type, dataSize, D)
 
@@ -194,6 +170,15 @@ function [absRank] = extract_absolute_rank(taglist, dataSize, numOfWords)
     absRank = log2(1+absRank);
     absRank(find(absRank == 0)) = Inf;
     absRank = 1./absRank;
+end
+
+function[processed_data] = pre_process(raw_data)
+    dataSize = size(raw_data,1);
+    % Decentralization
+    processed_data = raw_data - repmat(mean(raw_data),dataSize,1);
+    % Normalize
+    processed_data = processed_data * sqrt(diag(1./diag(processed_data'*processed_data)));
+    processed_data(isnan(processed_data)==1)=0;
 end
 
 

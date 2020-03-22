@@ -47,19 +47,27 @@ The computing method of mAP following the steps when it used in recommended syst
 ##  Result
 
 #### Experiment on PASCAL:
-|       | Image-to-text(mAP) | Text-to-image(mAP) |
-| :---: | :----------------: | :----------------: |
-|  CCA  |       0.1962       |       0.1754       |
-|  PLS  |       0.2266       |       0.1879       |
-|  BLM  |       0.2419       |       0.2085       |
-| GMMFA |       0.2424       |       0.2089       |
+|           | Image-to-text(mAP) | Text-to-image(mAP) |
+| :-------: | :----------------: | :----------------: |
+|    CCA    |       0.1962       |       0.1754       |
+|    PLS    |       0.2266       |       0.1879       |
+|    BLM    |       0.2419       |       0.2085       |
+|   GMMFA   |       0.2424       |       0.2089       |
+|  CCA+PCA  |       0.2252       |       0.1958       |
+|  PLS+PCA  |       0.2450       |       0.2015       |
+|  BLM+PCA  |       0.2450       |       0.2045       |
+| GMMFA+PCA |       0.2465       |       0.2050       |
 
 ### Experiment on Wiki:
 
-|       | Image-to-text(mAP) | Text-to-image(mAP) |
-| :---: | :----------------: | :----------------: |
-|  CCA  |       0.2435       |       0.1978       |
-|  PLS  |       0.2075       |       0.1654       |
-|  BLM  |       0.2589       |       0.2008       |
-| GMMFA |       0.2481       |       0.1997       |
+|           | Image-to-text(mAP) | Text-to-image(mAP) |
+| :-------: | :----------------: | :----------------: |
+|    CCA    |       0.2435       |       0.1978       |
+|    PLS    |       0.2075       |       0.1654       |
+|    BLM    |       0.2589       |       0.2008       |
+|   GMMFA   |       0.2481       |       0.1997       |
+|  CCA+PCA  |       0.2649       |       0.2162       |
+|  PLS+PCA  |       0.2477       |       0.2047       |
+|  BLM+PCA  |       0.2607       |       0.2101       |
+| GMMFA+PCA |       0.2471       |       0.2006       |
 

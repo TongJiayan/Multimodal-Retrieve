@@ -7,6 +7,7 @@ function [config] = load_config()
     algorithm = general.getElementsByTagName('algorithm').item(0).getTextContent;
     dataset = general.getElementsByTagName('dataset').item(0).getTextContent;
     direction = general.getElementsByTagName('direction').item(0).getTextContent;
+    pca = general.getElementsByTagName('pca').item(0).getTextContent;
 
     % config object creation
     config = {};
@@ -14,6 +15,7 @@ function [config] = load_config()
     config.general.algorithm = char(algorithm);
     config.general.dataset = char(dataset);
     config.general.direction = char(direction);
+    config.general.pca = str2double(pca);
     
     if strcmp(config.general.dataset,'PASCAL')
         pascal = xmlfile.getElementsByTagName('pascal').item(0);

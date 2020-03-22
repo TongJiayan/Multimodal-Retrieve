@@ -5,6 +5,7 @@
         <algorithm>GMMFA</algorithm>
         <dataset>PASCAL</dataset>  
         <direction>text-to-image</direction>
+        <pca>0</pca>
     </general>
     <pascal>
         <numOfWords>399</numOfWords>

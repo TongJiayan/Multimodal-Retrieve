@@ -12,7 +12,7 @@ if strcmp(dataset,'PASCAL')
 elseif strcmp(dataset,'WIKI')
     data = load_wiki(config);
 end
-
+%%
 % TRAIN MODEL and TEST
 dataCell = cell(2,1);
 dataCell{1,1}.label = (1:1:config.trainDataSize).';
@@ -20,20 +20,18 @@ dataCell{2,1}.label = (1:1:config.trainDataSize).';
 dataCell{1,1}.data = data.train.text;
 dataCell{2,1}.data = data.train.image;
 %%
-
+[factor, lamda] = set_parameters(config);
+if config.general.pca == 1
+    options.PCA = config.general.pca;
+end
+options.Factor = factor;
+options.Lamda = lamda;
 if strcmp('CCA',config.general.algorithm)   
 %    [A,B,r,U,V] = canoncorr(F.gist,F.wc);
 %    result_list = retrieve_CCA('image-tag',TF,A,B);
 %    disp('Relative images have been retrieved according to tag feature.');  
     options.method='CCA';
-    options.ReguAlpha =0.01;
-    if strcmp(dataset,'PASCAL')
-        options.Factor= 13;
-        options.Lamda = 1;  
-    elseif strcmp(dataset,'WIKI')
-        options.Factor= 13;
-        options.Lamda = 1;  
-    end
+    options.ReguAlpha =0.01;   
 elseif strcmp('PLS',config.general.algorithm)   
 %     [XL,YL,XS,YS,BETA,PCTVAR,MSE] = plsregress(F.wc,F.gist,16);
 %     result_list = retrieve_PLS('image-tag',TF,BETA);
@@ -41,13 +39,7 @@ elseif strcmp('PLS',config.general.algorithm)
 
     options.method='PLS';
     options.ReguAlpha =0.01;
-    if strcmp(dataset,'PASCAL')
-        options.Factor= 63;
-        options.Lamda = 1;  
-    elseif strcmp(dataset,'WIKI')
-        options.Factor= 14;
-        options.Lamda = 1;  
-    end
+    
     % ncomp = find(cumsum(PCTVAR(2,:)) >= pve,1, 'first');
     % plot(1:350,cumsum(100*PCTVAR(2,:)));
     % plot(1:350,100*PCTVAR(2,:));
@@ -55,28 +47,16 @@ elseif strcmp('PLS',config.general.algorithm)
     % ylabel('Percent Variance Explained in y');  
 elseif strcmp('BLM',config.general.algorithm) 
     options.method = 'BLM';
-    if strcmp(dataset,'PASCAL')
-        options.Factor= 61;
-        options.Lamda = 200;  
-    elseif strcmp(dataset,'WIKI')
-        options.Factor= 13;
-        options.Lamda = 2;  
-    end
+    options.Factor = factor;
+    options.Lamda = lamda;
 elseif strcmp('GMMFA',config.general.algorithm)  
     options.method = 'MFA';
     options.ReguAlpha = 1e-6;
     options.Mult = [1 1];
-    if strcmp(dataset,'PASCAL')
-        options.Factor= 57;
-        options.Lamda = 10;  
-    elseif strcmp(dataset,'WIKI')
-        options.Factor= 6;
-        options.Lamda = 1;  
-    end    
 end
 
-Wout = Newgma(dataCell,options);    
-result_list = retrieve(config.general.direction, data.test, Wout);
+Wout = Newgma(dataCell,options);
+result_list = retrieve(config.general.direction, data.test, Wout , config.general.pca);
 
 % EVALUATE
 [mAP] = evaluate(data.test, result_list, config);

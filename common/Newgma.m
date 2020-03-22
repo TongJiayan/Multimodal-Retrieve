@@ -97,7 +97,7 @@ for i = 1:nV % loop over different views to get corresponding W and D matrices
     end
     % carry out PCA, project the data on eigen-vectors and output in dataCell{i,1}.data, save eigen-vectors (evFin) and mean of projected data in mPCA
     if (isfield(options, 'PCA') && options.PCA)
-        [dataCell{i,1}.data evFin{i,1} mPCA{i,1}] = pcaIn(dataCell{i,1}.data,options);
+        [dataCell{i,1}.data, evFin{i,1}, mPCA{i,1}] = pcaIn(dataCell{i,1}.data,options);
         [nS(i) Dim(i)] = size(dataCell{i,1}.data); % The new data dimension
     end
 
@@ -1065,7 +1065,7 @@ D = (D+D')/2;
 end
 
 
-function [X ev meanPCA] = pcaIn(Xin,opts)
+function [X, ev, meanPCA] = pcaIn(Xin,opts)
 oTmp.disp = 0;
 numSamples = size(Xin,1); % Xin is in the form where one sample is in one row
 
@@ -1077,7 +1077,7 @@ else
 end
 
 dim = size(Xin,2);
-[ev ed] = eigs(A,numSamples-1,'LA',oTmp);
+[ev, ed] = eigs(A,numSamples-1,'LA',oTmp);
 
 if (~isfield(opts,'PCAthresh'))
     opts.PCAthresh = 0.95; % default
