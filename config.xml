@@ -5,7 +5,8 @@
         <algorithm>GMMFA</algorithm>
         <dataset>PASCAL</dataset>  
         <direction>text-to-image</direction>
-        <pca>0</pca>
+        <pca>0</pca> <!-- always with raw feature -->
+        <image_feature>VGG19</image_feature>
     </general>
     <pascal>
         <numOfWords>399</numOfWords>

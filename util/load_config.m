@@ -8,7 +8,8 @@ function [config] = load_config()
     dataset = general.getElementsByTagName('dataset').item(0).getTextContent;
     direction = general.getElementsByTagName('direction').item(0).getTextContent;
     pca = general.getElementsByTagName('pca').item(0).getTextContent;
-
+    image_feature = general.getElementsByTagName('image_feature').item(0).getTextContent;
+    
     % config object creation
     config = {};
     config.general.rootPath = char(rootPath);
@@ -16,6 +17,7 @@ function [config] = load_config()
     config.general.dataset = char(dataset);
     config.general.direction = char(direction);
     config.general.pca = str2double(pca);
+    config.general.image_feature = char(image_feature);
     
     if strcmp(config.general.dataset,'PASCAL')
         pascal = xmlfile.getElementsByTagName('pascal').item(0);

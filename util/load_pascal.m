@@ -13,9 +13,20 @@ function [data] = load_pascal(config)
     data.test = {};
     data.test.objectcount = objectcount;  
     data.train.text = pre_process(train_features.wc);
-    data.train.image = pre_process(double(train_features.gist));
     data.test.text = pre_process(test_features.wc);
-    data.test.image = pre_process(double(test_features.gist));  
+   
+    
+    if strcmp(config.general.image_feature,'VGG19')
+		trainImagePath = strcat(rootPath,'data\pascal\train_img_vgg19.mat');
+		testImagePath = strcat(rootPath,'data\pascal\test_img_vgg19.mat');
+        load(trainImagePath);
+        load(testImagePath);
+        data.train.image = pre_process(double(train_img));
+        data.test.image = pre_process(double(test_img));
+    else
+        data.train.image = pre_process(double(train_features.gist));
+        data.test.image = pre_process(double(test_features.gist)); 
+    end
 end
 
 function [raw_data,taglist,objectcount] = load_raw_data(dataPath,dataSize)

@@ -46,7 +46,10 @@ The computing method of mAP following the steps when it used in recommended syst
 
 ##  Result
 
-#### Experiment on PASCAL:
+### Raw Features
+
+#### Experiment on PASCAL（GIST、Word Frequency）:
+
 |           | Image-to-text(mAP) | Text-to-image(mAP) |
 | :-------: | :----------------: | :----------------: |
 |    CCA    |       0.1962       |       0.1754       |
@@ -57,8 +60,9 @@ The computing method of mAP following the steps when it used in recommended syst
 |  PLS+PCA  |       0.2450       |       0.2015       |
 |  BLM+PCA  |       0.2450       |       0.2045       |
 | GMMFA+PCA |       0.2465       |       0.2050       |
+|           |                    |                    |
 
-### Experiment on Wiki:
+### Experiment on Wiki（SIFT、LDA）:
 
 |           | Image-to-text(mAP) | Text-to-image(mAP) |
 | :-------: | :----------------: | :----------------: |
@@ -70,4 +74,26 @@ The computing method of mAP following the steps when it used in recommended syst
 |  PLS+PCA  |       0.2477       |       0.2047       |
 |  BLM+PCA  |       0.2607       |       0.2101       |
 | GMMFA+PCA |       0.2471       |       0.2006       |
+
+
+
+### Deep Features
+
+#### Experiment on PASCAL(VGG19、Word Frequency)
+
+|       | Image-to-text(mAP) | Text-to-image(mAP) |
+| :---: | :----------------: | :----------------: |
+|  CCA  |       0.3552       |       0.3382       |
+|  PLS  |       0.6611       |       0.6986       |
+|  BLM  |       0.6355       |       0.6381       |
+| GMMFA |       0.6374       |       0.6403       |
+
+#### Experiment on WIKIPEDIA(VGG19、LDA)
+
+|       | Image-to-text(mAP) | Text-to-image(mAP) |
+| :---: | :----------------: | :----------------: |
+|  CCA  |       0.3126       |       0.2814       |
+|  PLS  |       0.3879       |       0.3505       |
+|  BLM  |       0.3840       |       0.3650       |
+| GMMFA |       0.3950       |       0.3570       |
 

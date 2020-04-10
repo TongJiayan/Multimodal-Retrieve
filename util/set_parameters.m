@@ -2,6 +2,7 @@ function [factor, lamda] = set_parameters(config)
     dataset = config.general.dataset;
     algo = config.general.algorithm;
     with_PCA = config.general.pca;
+    image_feature = config.general.image_feature;
     if strcmp(dataset,'PASCAL')
         switch algo
             case 'CCA'
@@ -9,8 +10,8 @@ function [factor, lamda] = set_parameters(config)
                     factor = 6;
                     lamda = 1;
                 else
-                    factor = 13;
-                    lamda = 1;
+                    factor =13; %13
+                    lamda = 1;%1
                 end
             case 'PLS'
                 if with_PCA
@@ -43,6 +44,9 @@ function [factor, lamda] = set_parameters(config)
                 if with_PCA
                     factor = 5;
                     lamda = 1;
+                elseif strcmp(image_feature,'VGG19')
+                    factor = 7;
+                    lamda = 1;
                 else
                     factor = 13;
                     lamda = 1;
@@ -50,6 +54,9 @@ function [factor, lamda] = set_parameters(config)
             case 'PLS'
                 if with_PCA
                     factor = 8;
+                    lamda = 1;
+                elseif strcmp(image_feature,'VGG19')
+                    factor = 5;
                     lamda = 1;
                 else
                     factor = 14;
@@ -59,6 +66,9 @@ function [factor, lamda] = set_parameters(config)
                 if with_PCA
                     factor = 26;
                     lamda = 3;
+                elseif strcmp(image_feature,'VGG19')
+                    factor = 32;
+                    lamda = 1;
                 else
                     factor = 13;
                     lamda = 2;
@@ -66,6 +76,9 @@ function [factor, lamda] = set_parameters(config)
             case 'GMMFA'
                 if with_PCA
                     factor = 6;
+                    lamda = 1;
+                elseif strcmp(image_feature,'VGG19')
+                    factor = 5;
                     lamda = 1;
                 else
                     factor = 6;

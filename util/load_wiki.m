@@ -12,12 +12,23 @@ function [data] = load_wiki(config)
     data.train = {};
     data.test = {};
     load(dataPath);
-    data.train.image = pre_process(I_tr);
     data.train.text = pre_process(T_tr);
     data.train.cat_list = trainCatList.data;
-    data.test.image = pre_process(I_te);
     data.test.text = pre_process(T_te);
     data.test.cat_list = testCatList.data;
+    if strcmp(config.general.image_feature,'VGG19')
+        train_image_deep_feature_path = strcat(rootPath, 'data\wiki\wiki_train_img_vgg19.mat');
+        test_image_deep_feature_path = strcat(rootPath, 'data\wiki\wiki_test_img_vgg19.mat');
+        load(train_image_deep_feature_path);
+        load(test_image_deep_feature_path);
+        data.train.image = pre_process(train_img);
+        data.test.image = pre_process(test_img);
+    else
+        data.train.image = pre_process(I_tr);
+        data.test.image = pre_process(I_te);            
+    end
+
+    
 end
 
 function[processed_data] = pre_process(raw_data)

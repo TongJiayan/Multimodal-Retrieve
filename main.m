@@ -1,6 +1,7 @@
+
 % INITIALIZE
 % root_path = 'E:\毕业设计\多模态数据匹配\实验\Experiment On Pascal 2007\Multimodal-Retrieve-On-Pascal\';
-root_path = '~/Multimodal-Retrieve/';
+root_path = '~/Multimodal-Retrieve';
 cd(root_path)
 config = initialize();
 clear root_path;
@@ -21,11 +22,13 @@ dataCell{1,1}.data = data.train.text;
 dataCell{2,1}.data = data.train.image;
 %%
 [factor, lamda] = set_parameters(config);
+
 if config.general.pca == 1
     options.PCA = config.general.pca;
 end
 options.Factor = factor;
 options.Lamda = lamda;
+
 if strcmp('CCA',config.general.algorithm)   
 %    [A,B,r,U,V] = canoncorr(F.gist,F.wc);
 %    result_list = retrieve_CCA('image-tag',TF,A,B);
@@ -56,6 +59,7 @@ elseif strcmp('GMMFA',config.general.algorithm)
 end
 
 Wout = Newgma(dataCell,options);
+
 result_list = retrieve(config.general.direction, data.test, Wout , config.general.pca);
 
 % EVALUATE
