@@ -12,6 +12,8 @@ if strcmp(dataset,'PASCAL')
     data = load_pascal(config); 
 elseif strcmp(dataset,'WIKI')
     data = load_wiki(config);
+elseif strcmp(dataset,'NUSWIDE')
+    data = load_nuswide(config);
 end
 %%
 % TRAIN MODEL and TEST
@@ -59,7 +61,6 @@ elseif strcmp('GMMFA',config.general.algorithm)
 end
 
 Wout = Newgma(dataCell,options);
-
 result_list = retrieve(config.general.direction, data.test, Wout , config.general.pca);
 
 % EVALUATE

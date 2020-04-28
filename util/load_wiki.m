@@ -1,7 +1,11 @@
 function [data] = load_wiki(config)
     rootPath = config.general.rootPath;
     
-    dataPath = strcat(rootPath,'data\wiki\raw_features.mat');
+    if strcmp(config.general.image_feature,'VGG19')
+        dataPath = strcat(rootPath, 'data\wiki\wiki_img_vgg19.mat');
+    else
+        dataPath = strcat(rootPath,'data\wiki\raw_features.mat');
+    end
     trainsetCatListPath = strcat(rootPath,'data\wiki\trainset_txt_img_cat.list');
     testsetCatListPath = strcat(rootPath,'data\wiki\testset_txt_img_cat.list');
         
@@ -17,12 +21,8 @@ function [data] = load_wiki(config)
     data.test.text = pre_process(T_te);
     data.test.cat_list = testCatList.data;
     if strcmp(config.general.image_feature,'VGG19')
-        train_image_deep_feature_path = strcat(rootPath, 'data\wiki\wiki_train_img_vgg19.mat');
-        test_image_deep_feature_path = strcat(rootPath, 'data\wiki\wiki_test_img_vgg19.mat');
-        load(train_image_deep_feature_path);
-        load(test_image_deep_feature_path);
-        data.train.image = pre_process(train_img);
-        data.test.image = pre_process(test_img);
+        data.train.image = pre_process(img_train);
+        data.test.image = pre_process(img_test);
     else
         data.train.image = pre_process(I_tr);
         data.test.image = pre_process(I_te);            

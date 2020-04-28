@@ -15,6 +15,8 @@ PASCAL VOC 2007. This experiment uses the formative dataset provided by [1].
 
 Wikipedia. http://www.svcl.ucsd.edu/projects/crossmodal/
 
+NUS-WIDE : https://lms.comp.nus.edu.sg/wp-content/uploads/2019/research/nuswide/NUS-WIDE.html
+
 ## Train
 
 ### PASCAL
@@ -23,13 +25,19 @@ Train with **2808** samples with only one object. The feature used are **GIST(vi
 
 ### Wiki
 
-Train with **2173** samples. The images were represented by 128-dimensional vector quantized features with SIFT and the text feature is derived from the latent Dirichlet allocation model with 10 dimensions.
+Train with **2173** samples. The images were represented by 128-dimensional vector quantized features with SIFT and the text feature is derived from the latent Dirichlet allocation model with 10 dimensions. 
+
+### NUS-WIDE
+
+Train with **10000** samples due to the limitation of machine. The feature used are **225-d block-wise color moments(visual feature)** and **1000-d word-frequency vector(text feature)**. 
 
 ## Test and Evaluate
 
 For PASCAL datasets, I evaluate the model with **2841** test samples with only one object. 
 
 For Wiki datasets, I evaluate the model with **693** test samples.
+
+For NUS-WIDE datasets, I evaluate the model with **5000** test samples.
 
 **Image-to-text :** Retrieve related images with text from testset. Return an ordered list, in which each element indicates the index of retrieved image in testset**.**
 
@@ -75,6 +83,19 @@ The computing method of mAP following the steps when it used in recommended syst
 |  BLM+PCA  |       0.2607       |       0.2101       |
 | GMMFA+PCA |       0.2471       |       0.2006       |
 
+### Experiment on NUS-WIDE(block-wise color moments, Word Frequency)
+
+|           | Image-to-text(mAP) | Text-to-image(mAP) |
+| :-------: | :----------------: | :----------------: |
+|    CCA    |       0.2316       |       0.2372       |
+|    PLS    |       0.2194       |       0.2246       |
+|    BLM    |       0.2519       |       0.2510       |
+|   GMMFA   |       0.2503       |       0.2440       |
+|  CCA+PCA  |       0.2261       |       0.2391       |
+|  PLS+PCA  |       0.2331       |       0.2363       |
+|  BLM+PCA  |       0.2470       |       0.2510       |
+| GMMFA+PCA |       0.2507       |       0.2442       |
+
 
 
 ### Deep Features
@@ -96,4 +117,13 @@ The computing method of mAP following the steps when it used in recommended syst
 |  PLS  |       0.3879       |       0.3505       |
 |  BLM  |       0.3840       |       0.3650       |
 | GMMFA |       0.3950       |       0.3570       |
+
+### Experiment on NUSWIDE(VGG19、Word Frequency)
+
+|       | Image-to-text(mAP) | Text-to-image(mAP) |
+| :---: | :----------------: | :----------------: |
+|  CCA  |       0.2831       |       0.2826       |
+|  PLS  |       0.4231       |       0.4110       |
+|  BLM  |       0.3949       |       0.4110       |
+| GMMFA |       0.4074       |       0.4095       |
 

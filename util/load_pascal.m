@@ -17,12 +17,10 @@ function [data] = load_pascal(config)
    
     
     if strcmp(config.general.image_feature,'VGG19')
-		trainImagePath = strcat(rootPath,'data\pascal\train_img_vgg19.mat');
-		testImagePath = strcat(rootPath,'data\pascal\test_img_vgg19.mat');
-        load(trainImagePath);
-        load(testImagePath);
-        data.train.image = pre_process(double(train_img));
-        data.test.image = pre_process(double(test_img));
+        imagePath = strcat(rootPath,'data\pascal\train_img_vgg19.mat');
+		load(imagePath);
+        data.train.image = pre_process(double(img_train));
+        data.test.image = pre_process(double(img_test));
     else
         data.train.image = pre_process(double(train_features.gist));
         data.test.image = pre_process(double(test_features.gist)); 

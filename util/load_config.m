@@ -35,5 +35,12 @@ function [config] = load_config()
         
         config.trainDataSize = str2double(trainDataSize);
         config.testDataSize = str2double(testDataSize);  
+    elseif strcmp(config.general.dataset,'NUSWIDE')
+        nuswide = xmlfile.getElementsByTagName('nuswide').item(0);
+        trainDataSize = nuswide.getElementsByTagName('trainDataSize').item(0).getTextContent;
+        testDataSize = nuswide.getElementsByTagName('testDataSize').item(0).getTextContent;
+        
+        config.trainDataSize = str2double(trainDataSize);
+        config.testDataSize = str2double(testDataSize); 
     end
 end
