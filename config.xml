@@ -2,9 +2,9 @@
 <config>
     <general>
         <rootPath>~/Multimodal-Retrieve/</rootPath> 
-        <algorithm>GMMFA</algorithm>
-        <dataset>PASCAL</dataset>  
-        <direction>text-to-image</direction>
+        <algorithm>BLM</algorithm>
+        <dataset>WIKI</dataset>  
+        <direction>image-to-text</direction>
         <pca>0</pca> <!-- always with raw feature -->
         <image_feature>VGG19</image_feature>
     </general>
@@ -16,5 +16,9 @@
     <wiki>
         <trainDataSize>2173</trainDataSize>
         <testDataSize>693</testDataSize>        
-    </wiki>   
+    </wiki>  
+    <nuswide>
+        <trainDataSize>10000</trainDataSize>
+        <testDataSize>5000</testDataSize> 
+    </nuswide>
 </config>
